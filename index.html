@@ -56,4 +56,17 @@
 
   <script src="script.js"></script>
 </body>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("s-price").innerText = localStorage.getItem("shortPrice") || "₹999";
+    document.getElementById("t-price").innerText = localStorage.getItem("thumbPrice") || "₹399";
+    document.getElementById("b-price").innerText = localStorage.getItem("brandPrice") || "₹1499";
+
+    const thumb = localStorage.getItem("thumbnailImage");
+    const video = localStorage.getItem("shortVideo");
+
+    if (thumb) document.getElementById("thumbImg").src = thumb;
+    if (video) document.getElementById("shortVid").src = video;
+  });
+  </script>
 </html>
