@@ -1,73 +1,104 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #0f0f0f;
+  font-family: 'Poppins', sans-serif;
+  background: #121212;
   color: white;
+  line-height: 1.6;
 }
-
-.navbar {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  padding: 1rem 2rem;
+nav.navbar {
   display: flex;
   justify-content: space-between;
-  font-size: 1.5rem;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
 }
-
-.navbar span {
+nav.navbar h1 span {
   color: #f9b416;
 }
-
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+nav ul li a:hover, nav ul li a.active {
+  color: #f9b416;
+}
 .hero {
   text-align: center;
-  padding: 2rem;
+  padding: 5rem 2rem;
+  background: #1c1c1c;
 }
-
 .services {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
   padding: 2rem;
 }
-
 .card {
-  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
   border-radius: 20px;
-  padding: 1.5rem;
-  box-shadow: 0 0 10px #00000055;
-  transition: transform 0.3s;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
 }
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
 }
-
-.portfolio {
+footer {
+  padding: 1rem;
   text-align: center;
-  padding: 2rem;
+  background: #111;
 }
-
-.container {
-  max-width: 500px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
+.content {
+  padding: 3rem;
+  max-width: 600px;
+  margin: auto;
 }
-
+input, button {
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+}
 button {
   background: #f9b416;
-  border: none;
-  padding: 0.75rem;
-  border-radius: 8px;
-  color: black;
-  font-weight: bold;
+  color: #000;
   cursor: pointer;
 }
+button:hover {
+  opacity: 0.8;
+}
+img, video {
+  display: block;
+  margin-top: 10px;
+}
+.hidden {
+  display: none;
+}
 
-footer {
-  text-align: center;
-  padding: 2rem;
-  font-size: 0.9rem;
-  background: #111;
+/* Animations */
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+.slide-in {
+  animation: slideIn 0.8s ease-in-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-30px);}
+  to { opacity: 1; transform: translateX(0);}
 }
