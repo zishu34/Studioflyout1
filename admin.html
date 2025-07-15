@@ -5,31 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Panel - StudioFlyout</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .hidden { display: none; }
+    .admin-panel { max-width: 500px; margin: 4rem auto; padding: 2rem; background: #1f1f1f; border-radius: 16px; }
+    input, textarea {
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      border: none;
+      width: 100%;
+      background: #2a2a2a;
+      color: white;
+    }
+  </style>
 </head>
 <body>
 
   <nav class="glass-navbar">
-    <h1>Admin <span>Panel</span></h1>
+    <h1>Studio<span>Flyout</span> Admin</h1>
   </nav>
 
-  <section class="admin-panel">
-    <h2>Update Portfolio & Prices</h2>
-    <form id="adminForm">
-      <label>Upload Thumbnail Image</label>
-      <input type="file" />
-      
-      <label>Short Video Price</label>
-      <input type="text" placeholder="₹999" />
-
-      <label>Thumbnail Design Price</label>
-      <input type="text" placeholder="₹399" />
-
-      <label>Branding Kit Price</label>
-      <input type="text" placeholder="₹1499" />
-
-      <button type="submit" class="cta-btn">Update</button>
-    </form>
+  <!-- LOGIN SCREEN -->
+  <section id="loginSection" class="admin-panel">
+    <h2>🔒 Admin Login</h2>
+    <input type="password" id="adminPass" placeholder="Enter admin password" />
+    <button class="cta-btn" onclick="checkLogin()">Login</button>
   </section>
+
+  <!-- ADMIN PANEL -->
+  <section id="adminSection" class="admin-panel hidden">
+    <h2>✏️ Update Services</h2>
+    <label>Short Video Price</label>
+    <input id="shortPrice" type="text" />
+
+    <label>Thumbnail Price</label>
+    <input id="thumbPrice" type="text" />
+
+    <label>Branding Kit Price</label>
+    <input id="brandPrice" type="text" />
+
+    <button class="cta-btn" onclick="saveChanges()">💾 Save Changes</button>
+  </section>
+
+  <script>
+    const adminPassword = "flyout@123"; // 🔐 Change this to your secret password
+
+    function checkLogin() {
+      const input = document.getElementById("adminPass").value;
+      if (input === adminPassword) {
+        document.getElementById("loginSection").classList.add("hidden");
+        document.getElementById("adminSection").classList.remove("hidden");
+        loadValues();
+      } else {
+        alert("Incorrect password!");
+      }
+    }
+
+    function saveChanges() {
+      localStorage.setItem("shortPrice", document.getElementById("shortPrice").value);
+      localStorage.setItem("thumbPrice", document.getElementById("thumbPrice").value);
+      localStorage.setItem("brandPrice", document.getElementById("brandPrice").value);
+      alert("✅ Changes saved!");
+    }
+
+    function loadValues() {
+      document.getElementById("shortPrice").value = localStorage.getItem("shortPrice") || "₹999";
+      document.getElementById("thumbPrice").value = localStorage.getItem("thumbPrice") || "₹399";
+      document.getElementById("brandPrice").value = localStorage.getItem("brandPrice") || "₹1499";
+    }
+  </script>
 
 </body>
 </html>
