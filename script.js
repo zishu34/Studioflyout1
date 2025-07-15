@@ -1,59 +1,63 @@
-const password = "flyout@123";
+// Default admin password
+const ADMIN_PASSWORD = "flyout@123";
 
-if (window.location.pathname.includes("index.html") || window.location.pathname === "/" || window.location.pathname.includes("vercel")) {
-  window.onload = () => {
-    document.getElementById("price1").innerText = localStorage.getItem("price1") || "₹999";
-    document.getElementById("price2").innerText = localStorage.getItem("price2") || "₹399";
-    document.getElementById("price3").innerText = localStorage.getItem("price3") || "₹1499";
+// === Admin Login ===
+function loginAdmin() {
+  const input = document.getElementById("admin-password").value;
+  if (input === ADMIN_PASSWORD) {
+    document.getElementById("login-section").style.display = "none";
+    document.getElementById("admin-panel").style.display = "block";
 
-    const thumb = localStorage.getItem("thumbImage");
-    if (thumb) document.getElementById("thumbImage").src = thumb;
-
-    const video = localStorage.getItem("shortVideo");
-    if (video) document.getElementById("shortVideo").src = video;
-  };
-}
-
-function checkLogin() {
-  const pass = document.getElementById("adminPass").value;
-  if (pass === password) {
-    document.getElementById("loginBox").classList.add("hidden");
-    document.getElementById("adminPanel").classList.remove("hidden");
-
-    document.getElementById("p1").value = localStorage.getItem("price1") || "";
-    document.getElementById("p2").value = localStorage.getItem("price2") || "";
-    document.getElementById("p3").value = localStorage.getItem("price3") || "";
-
-    document.getElementById("thumbPreview").src = localStorage.getItem("thumbImage");
-    document.getElementById("videoPreview").src = localStorage.getItem("shortVideo");
+    // Load current values
+    document.getElementById("editPrice").value = localStorage.getItem("editPrice") || "₹999";
+    document.getElementById("thumbPrice").value = localStorage.getItem("thumbPrice") || "₹399";
+    document.getElementById("brandPrice").value = localStorage.getItem("brandPrice") || "₹1499";
   } else {
-    alert("Wrong password!");
+    alert("Incorrect password");
   }
 }
 
-function uploadImage(e) {
-  const file = e.target.files[0];
-  const reader = new FileReader();
-  reader.onload = () => {
-    localStorage.setItem("thumbImage", reader.result);
-    document.getElementById("thumbPreview").src = reader.result;
-  };
-  reader.readAsDataURL(file);
+// === Save Prices ===
+function savePrices() {
+  const editPrice = document.getElementById("editPrice").value;
+  const thumbPrice = document.getElementById("thumbPrice").value;
+  const brandPrice = document.getElementById("brandPrice").value;
+
+  localStorage.setItem("editPrice", editPrice);
+  localStorage.setItem("thumbPrice", thumbPrice);
+  localStorage.setItem("brandPrice", brandPrice);
+
+  alert("Prices updated successfully!");
 }
 
-function uploadVideo(e) {
-  const file = e.target.files[0];
-  const reader = new FileReader();
-  reader.onload = () => {
-    localStorage.setItem("shortVideo", reader.result);
-    document.getElementById("videoPreview").src = reader.result;
-  };
-  reader.readAsDataURL(file);
+// === Add Thumbnail ===
+function addThumbnail() {
+  const url = document.getElementById("thumbnail-url").value;
+  if (!url) return alert("Please enter a URL.");
+
+  let thumbnails = JSON.parse(localStorage.getItem("thumbnails")) || [];
+  thumbnails.push(url);
+  localStorage.setItem("thumbnails", JSON.stringify(thumbnails));
+
+  alert("Thumbnail added!");
+  document.getElementById("thumbnail-url").value = "";
 }
 
-function saveAll() {
-  localStorage.setItem("price1", document.getElementById("p1").value);
-  localStorage.setItem("price2", document.getElementById("p2").value);
-  localStorage.setItem("price3", document.getElementById("p3").value);
-  alert("✅ All changes saved! Go back to homepage to see the updates.");
-}
+// === Load Prices & Thumbnails on Homepage ===
+window.onload = function () {
+  // Only run on index.html
+  if (document.getElementById("edit-price")) {
+    document.getElementById("edit-price").innerText = localStorage.getItem("editPrice") || "₹999";
+    document.getElementById("thumb-price").innerText = localStorage.getItem("thumbPrice") || "₹399";
+    document.getElementById("brand-price").innerText = localStorage.getItem("brandPrice") || "₹1499";
+
+    const thumbnailList = document.getElementById("thumbnail-list");
+    let thumbnails = JSON.parse(localStorage.getItem("thumbnails")) || [];
+
+    thumbnails.forEach(url => {
+      const img = document.createElement("img");
+      img.src = url;
+      thumbnailList.appendChild(img);
+    });
+  }
+      }
