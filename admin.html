@@ -3,126 +3,92 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>StudioFlyout Admin</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Admin - StudioFlyout</title>
+  <link rel="stylesheet" href="style.css">
   <style>
     .hidden { display: none; }
-    .admin-panel {
-      max-width: 500px;
-      margin: 4rem auto;
-      padding: 2rem;
-      background: #1f1f1f;
-      border-radius: 16px;
-      color: white;
-    }
-    input, textarea {
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border-radius: 10px;
-      border: none;
+    input, button {
+      margin-bottom: 10px;
+      padding: 10px;
       width: 100%;
-      background: #2a2a2a;
-      color: white;
-    }
-    label { margin-top: 0.5rem; display: block; }
-    img, video {
-      max-width: 100%;
-      margin-top: 1rem;
-      border-radius: 10px;
     }
   </style>
 </head>
 <body>
 
-  <nav class="glass-navbar">
+  <nav class="navbar glass">
     <h1>Studio<span>Flyout</span> Admin</h1>
   </nav>
 
-  <!-- LOGIN -->
-  <section id="loginSection" class="admin-panel">
-    <h2>🔒 Admin Login</h2>
-    <input type="password" id="adminPass" placeholder="Enter admin password" />
-    <button class="cta-btn" onclick="checkLogin()">Login</button>
-  </section>
+  <div id="loginBox" class="container">
+    <h2>Admin Login</h2>
+    <input type="password" id="adminPass" placeholder="Enter Password">
+    <button onclick="checkLogin()">Login</button>
+  </div>
 
-  <!-- ADMIN PANEL -->
-  <section id="adminSection" class="admin-panel hidden">
-    <h2>⚙️ Update Content</h2>
+  <div id="adminPanel" class="container hidden">
+    <h2>Update Prices</h2>
+    <input id="p1" placeholder="Short Video Price">
+    <input id="p2" placeholder="Thumbnail Price">
+    <input id="p3" placeholder="Branding Price">
 
-    <label>🎬 Short Video Price</label>
-    <input id="shortPrice" type="text" />
+    <h3>Upload Thumbnail Image</h3>
+    <input type="file" accept="image/*" onchange="uploadImage(event)">
+    <img id="thumbPreview" width="100"/>
 
-    <label>🖼 Thumbnail Price</label>
-    <input id="thumbPrice" type="text" />
+    <h3>Upload Short-form Video</h3>
+    <input type="file" accept="video/*" onchange="uploadVideo(event)">
+    <video id="videoPreview" width="200" controls></video>
 
-    <label>🚀 Branding Kit Price</label>
-    <input id="brandPrice" type="text" />
-
-    <label>🖼 Upload Thumbnail Image</label>
-    <input type="file" accept="image/*" onchange="previewImage(event, 'thumbnail')" />
-
-    <label>🎬 Upload Short-form Video</label>
-    <input type="file" accept="video/*" onchange="previewVideo(event, 'video')" />
-
-    <button class="cta-btn" onclick="saveChanges()">💾 Save All</button>
-
-    <h3>Preview</h3>
-    <img id="thumbnailPreview" />
-    <video id="videoPreview" controls></video>
-  </section>
+    <button onclick="saveAll()">💾 Save Changes</button>
+  </div>
 
   <script>
-    const adminPassword = "flyout@123";
+    const password = "flyout@123";
 
     function checkLogin() {
-      const input = document.getElementById("adminPass").value;
-      if (input === adminPassword) {
-        document.getElementById("loginSection").classList.add("hidden");
-        document.getElementById("adminSection").classList.remove("hidden");
-        loadValues();
+      const pass = document.getElementById("adminPass").value;
+      if (pass === password) {
+        document.getElementById("loginBox").classList.add("hidden");
+        document.getElementById("adminPanel").classList.remove("hidden");
+
+        // preload existing values
+        document.getElementById("p1").value = localStorage.getItem("price1") || "";
+        document.getElementById("p2").value = localStorage.getItem("price2") || "";
+        document.getElementById("p3").value = localStorage.getItem("price3") || "";
+
+        document.getElementById("thumbPreview").src = localStorage.getItem("thumbImage");
+        document.getElementById("videoPreview").src = localStorage.getItem("shortVideo");
       } else {
-        alert("Incorrect password!");
+        alert("Wrong password!");
       }
     }
 
-    function saveChanges() {
-      localStorage.setItem("shortPrice", document.getElementById("shortPrice").value);
-      localStorage.setItem("thumbPrice", document.getElementById("thumbPrice").value);
-      localStorage.setItem("brandPrice", document.getElementById("brandPrice").value);
-
-      alert("✅ All changes saved!");
-    }
-
-    function loadValues() {
-      document.getElementById("shortPrice").value = localStorage.getItem("shortPrice") || "₹999";
-      document.getElementById("thumbPrice").value = localStorage.getItem("thumbPrice") || "₹399";
-      document.getElementById("brandPrice").value = localStorage.getItem("brandPrice") || "₹1499";
-
-      const thumbData = localStorage.getItem("thumbnailImage");
-      const videoData = localStorage.getItem("shortVideo");
-
-      if (thumbData) document.getElementById("thumbnailPreview").src = thumbData;
-      if (videoData) document.getElementById("videoPreview").src = videoData;
-    }
-
-    function previewImage(event, key) {
-      const file = event.target.files[0];
+    function uploadImage(e) {
+      const file = e.target.files[0];
       const reader = new FileReader();
-      reader.onload = function(e) {
-        localStorage.setItem("thumbnailImage", e.target.result);
-        document.getElementById("thumbnailPreview").src = e.target.result;
+      reader.onload = () => {
+        localStorage.setItem("thumbImage", reader.result);
+        document.getElementById("thumbPreview").src = reader.result;
       };
       reader.readAsDataURL(file);
     }
 
-    function previewVideo(event, key) {
-      const file = event.target.files[0];
+    function uploadVideo(e) {
+      const file = e.target.files[0];
       const reader = new FileReader();
-      reader.onload = function(e) {
-        localStorage.setItem("shortVideo", e.target.result);
-        document.getElementById("videoPreview").src = e.target.result;
+      reader.onload = () => {
+        localStorage.setItem("shortVideo", reader.result);
+        document.getElementById("videoPreview").src = reader.result;
       };
       reader.readAsDataURL(file);
+    }
+
+    function saveAll() {
+      localStorage.setItem("price1", document.getElementById("p1").value);
+      localStorage.setItem("price2", document.getElementById("p2").value);
+      localStorage.setItem("price3", document.getElementById("p3").value);
+      alert("✅ All changes saved! Go back to homepage to see the updates.");
     }
   </script>
 
