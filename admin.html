@@ -3,36 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin – StudioFlyout</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Admin Panel – StudioFlyout</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <nav class="navbar glass">
-    <h1><span>Studio</span>Flyout Admin</h1>
+    <h1><span>Studio</span>Flyout</h1>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="admin.html" class="active">Admin</a></li>
+    </ul>
   </nav>
 
-  <div id="loginBox" class="content fade-in">
-    <h2>Admin Login</h2>
-    <input type="password" id="adminPass" placeholder="Enter Password">
-    <button onclick="checkLogin()">Login</button>
-  </div>
+  <section class="content fade-in">
+    <div id="login-section">
+      <h2>Admin Login</h2>
+      <input type="password" id="admin-password" placeholder="Enter password" />
+      <button onclick="loginAdmin()">Login</button>
+    </div>
 
-  <div id="adminPanel" class="content hidden fade-in">
-    <h2>Update Services & Media</h2>
-    <input id="p1" placeholder="Short Video Price">
-    <input id="p2" placeholder="Thumbnail Price">
-    <input id="p3" placeholder="Branding Price">
+    <div id="admin-panel" style="display:none;">
+      <h2>Admin Panel</h2>
 
-    <h3>Upload Thumbnail Image</h3>
-    <input type="file" accept="image/*" onchange="uploadImage(event)">
-    <img id="thumbPreview" width="100"/>
+      <h3>Update Prices</h3>
+      <label>Short-form Video Editing Price:</label>
+      <input type="text" id="editPrice" placeholder="₹999" />
+      <br><br>
+      <label>Thumbnail Design Price:</label>
+      <input type="text" id="thumbPrice" placeholder="₹399" />
+      <br><br>
+      <label>Branding Kit Price:</label>
+      <input type="text" id="brandPrice" placeholder="₹1499" />
+      <br><br>
+      <button onclick="savePrices()">Save Prices</button>
 
-    <h3>Upload Short-form Video</h3>
-    <input type="file" accept="video/*" onchange="uploadVideo(event)">
-    <video id="videoPreview" width="200" controls></video>
+      <hr>
 
-    <button onclick="saveAll()">💾 Save Changes</button>
-  </div>
+      <h3>Add Thumbnail Image</h3>
+      <input type="text" id="thumbnail-url" placeholder="Paste image URL here" />
+      <button onclick="addThumbnail()">Add Thumbnail</button>
+    </div>
+  </section>
 
   <script src="script.js"></script>
 </body>
