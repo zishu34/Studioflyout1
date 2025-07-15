@@ -3,31 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin - StudioFlyout</title>
+  <title>Admin – StudioFlyout</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .hidden { display: none; }
-    input, button {
-      margin-bottom: 10px;
-      padding: 10px;
-      width: 100%;
-    }
-  </style>
 </head>
 <body>
-
   <nav class="navbar glass">
-    <h1>Studio<span>Flyout</span> Admin</h1>
+    <h1><span>Studio</span>Flyout Admin</h1>
   </nav>
 
-  <div id="loginBox" class="container">
+  <div id="loginBox" class="content fade-in">
     <h2>Admin Login</h2>
     <input type="password" id="adminPass" placeholder="Enter Password">
     <button onclick="checkLogin()">Login</button>
   </div>
 
-  <div id="adminPanel" class="container hidden">
-    <h2>Update Prices</h2>
+  <div id="adminPanel" class="content hidden fade-in">
+    <h2>Update Services & Media</h2>
     <input id="p1" placeholder="Short Video Price">
     <input id="p2" placeholder="Thumbnail Price">
     <input id="p3" placeholder="Branding Price">
@@ -43,54 +34,6 @@
     <button onclick="saveAll()">💾 Save Changes</button>
   </div>
 
-  <script>
-    const password = "flyout@123";
-
-    function checkLogin() {
-      const pass = document.getElementById("adminPass").value;
-      if (pass === password) {
-        document.getElementById("loginBox").classList.add("hidden");
-        document.getElementById("adminPanel").classList.remove("hidden");
-
-        // preload existing values
-        document.getElementById("p1").value = localStorage.getItem("price1") || "";
-        document.getElementById("p2").value = localStorage.getItem("price2") || "";
-        document.getElementById("p3").value = localStorage.getItem("price3") || "";
-
-        document.getElementById("thumbPreview").src = localStorage.getItem("thumbImage");
-        document.getElementById("videoPreview").src = localStorage.getItem("shortVideo");
-      } else {
-        alert("Wrong password!");
-      }
-    }
-
-    function uploadImage(e) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        localStorage.setItem("thumbImage", reader.result);
-        document.getElementById("thumbPreview").src = reader.result;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function uploadVideo(e) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        localStorage.setItem("shortVideo", reader.result);
-        document.getElementById("videoPreview").src = reader.result;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function saveAll() {
-      localStorage.setItem("price1", document.getElementById("p1").value);
-      localStorage.setItem("price2", document.getElementById("p2").value);
-      localStorage.setItem("price3", document.getElementById("p3").value);
-      alert("✅ All changes saved! Go back to homepage to see the updates.");
-    }
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
