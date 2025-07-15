@@ -4,69 +4,58 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>StudioFlyout</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <nav class="glass-navbar">
+  <nav class="navbar glass">
     <h1>Studio<span>Flyout</span></h1>
-    <ul>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="admin.html">Admin</a></li>
-    </ul>
   </nav>
 
   <header class="hero">
-    <div class="content">
-      <h2>Creative Studio for Creators & Startups</h2>
-      <p>We help YouTubers, influencers, and startups stand out with clean, stunning visuals.</p>
-      <a href="#services" class="cta-btn">Explore Services</a>
-    </div>
+    <h2>Creative Services for Creators & Startups</h2>
+    <p>We help you look stunning online 🎥</p>
   </header>
 
-  <section id="services" class="services-section">
-    <h2 class="section-title">Our Services</h2>
-    <div class="services-grid">
-      <div class="service-card fade-in">
-        <h3>🎬 Short-form Video Editing</h3>
-        <p>₹999 per video (Reels, Shorts, TikTok)</p>
-      </div>
-      <div class="service-card fade-in">
-        <h3>🖼 Custom Thumbnail Design</h3>
-        <p>₹399 per design (YouTube, etc.)</p>
-      </div>
-      <div class="service-card fade-in">
-        <h3>🚀 Branding Kit</h3>
-        <p>₹1499 full package (logo, fonts, colors, templates)</p>
-      </div>
+  <section class="services">
+    <div class="card glass">
+      <h3>🎬 Short-form Video Editing</h3>
+      <p id="price1">₹999</p>
+    </div>
+    <div class="card glass">
+      <h3>🖼 Custom Thumbnail Design</h3>
+      <p id="price2">₹399</p>
+    </div>
+    <div class="card glass">
+      <h3>🚀 Branding Kit</h3>
+      <p id="price3">₹1499</p>
     </div>
   </section>
 
-  <section id="contact" class="contact-section">
-    <h2>Get in Touch</h2>
-    <p>Email: <a href="mailto:studioflyout1@gmail.com">studioflyout1@gmail.com</a></p>
-    <p>Instagram: <a href="https://instagram.com/studioflyout" target="_blank">@studioflyout</a></p>
+  <section class="portfolio">
+    <h2>Sample Work</h2>
+    <img id="thumbImage" src="default-thumb.jpg" alt="Thumbnail Sample">
+    <video id="shortVideo" controls width="320"></video>
   </section>
 
   <footer>
-    <p>&copy; 2025 StudioFlyout. All rights reserved.</p>
+    <p>Contact: <a href="mailto:studioflyout1@gmail.com">studioflyout1@gmail.com</a> | Instagram: <a href="https://instagram.com/studioflyout">@studioflyout</a></p>
   </footer>
 
-  <script src="script.js"></script>
-</body>
   <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("s-price").innerText = localStorage.getItem("shortPrice") || "₹999";
-    document.getElementById("t-price").innerText = localStorage.getItem("thumbPrice") || "₹399";
-    document.getElementById("b-price").innerText = localStorage.getItem("brandPrice") || "₹1499";
+    // Load updated values from localStorage
+    window.onload = () => {
+      document.getElementById("price1").innerText = localStorage.getItem("price1") || "₹999";
+      document.getElementById("price2").innerText = localStorage.getItem("price2") || "₹399";
+      document.getElementById("price3").innerText = localStorage.getItem("price3") || "₹1499";
 
-    const thumb = localStorage.getItem("thumbnailImage");
-    const video = localStorage.getItem("shortVideo");
+      const thumb = localStorage.getItem("thumbImage");
+      if (thumb) document.getElementById("thumbImage").src = thumb;
 
-    if (thumb) document.getElementById("thumbImg").src = thumb;
-    if (video) document.getElementById("shortVid").src = video;
-  });
+      const video = localStorage.getItem("shortVideo");
+      if (video) document.getElementById("shortVideo").src = video;
+    };
   </script>
+
+</body>
 </html>
