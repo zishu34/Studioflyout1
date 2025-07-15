@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>StudioFlyout – Creative Agency</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <title>StudioFlyout – Creative Services</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
   <nav class="navbar glass">
@@ -19,34 +19,34 @@
   </nav>
 
   <header class="hero fade-in">
-    <h2>Creative Services for Creators & Startups</h2>
-    <p>We help you look stunning online 🎥</p>
+    <h2>Creative Solutions for Creators</h2>
+    <p>Helping YouTubers, Influencers & Startups with high-quality content.</p>
   </header>
 
-  <section class="services">
-    <div class="card glass slide-in">
-      <h3>🎬 Short-form Video Editing</h3>
-      <p id="price1">₹999</p>
-    </div>
-    <div class="card glass slide-in">
-      <h3>🖼 Custom Thumbnail Design</h3>
-      <p id="price2">₹399</p>
-    </div>
-    <div class="card glass slide-in">
-      <h3>🚀 Branding Kit</h3>
-      <p id="price3">₹1499</p>
+  <section class="services fade-in">
+    <h2>Our Services</h2>
+    <div class="card-grid">
+      <div class="card glass">
+        <h3>🎬 Short-form Video Editing</h3>
+        <p id="edit-price">₹999 per video</p>
+      </div>
+      <div class="card glass">
+        <h3>🖼 Thumbnail Design</h3>
+        <p id="thumb-price">₹399 per design</p>
+      </div>
+      <div class="card glass">
+        <h3>🚀 Branding Kit</h3>
+        <p id="brand-price">₹1499 full package</p>
+      </div>
     </div>
   </section>
 
-  <section class="portfolio">
-    <h2>Sample Work</h2>
-    <img id="thumbImage" src="default-thumb.jpg" alt="Thumbnail Sample">
-    <video id="shortVideo" controls width="320"></video>
+  <section class="thumbnails fade-in">
+    <h2>Latest Thumbnails</h2>
+    <div id="thumbnail-list" class="thumbnail-grid">
+      <!-- Thumbnails will be inserted by JS -->
+    </div>
   </section>
-
-  <footer>
-    <p>Contact: <a href="mailto:studioflyout1@gmail.com">studioflyout1@gmail.com</a> | Instagram: <a href="https://instagram.com/studioflyout">@studioflyout</a></p>
-  </footer>
 
   <script src="script.js"></script>
 </body>
