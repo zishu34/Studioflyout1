@@ -3,11 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Panel - StudioFlyout</title>
+  <title>StudioFlyout Admin</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     .hidden { display: none; }
-    .admin-panel { max-width: 500px; margin: 4rem auto; padding: 2rem; background: #1f1f1f; border-radius: 16px; }
+    .admin-panel {
+      max-width: 500px;
+      margin: 4rem auto;
+      padding: 2rem;
+      background: #1f1f1f;
+      border-radius: 16px;
+      color: white;
+    }
     input, textarea {
       padding: 0.75rem;
       margin-bottom: 1rem;
@@ -17,6 +24,12 @@
       background: #2a2a2a;
       color: white;
     }
+    label { margin-top: 0.5rem; display: block; }
+    img, video {
+      max-width: 100%;
+      margin-top: 1rem;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -25,7 +38,7 @@
     <h1>Studio<span>Flyout</span> Admin</h1>
   </nav>
 
-  <!-- LOGIN SCREEN -->
+  <!-- LOGIN -->
   <section id="loginSection" class="admin-panel">
     <h2>🔒 Admin Login</h2>
     <input type="password" id="adminPass" placeholder="Enter admin password" />
@@ -34,21 +47,32 @@
 
   <!-- ADMIN PANEL -->
   <section id="adminSection" class="admin-panel hidden">
-    <h2>✏️ Update Services</h2>
-    <label>Short Video Price</label>
+    <h2>⚙️ Update Content</h2>
+
+    <label>🎬 Short Video Price</label>
     <input id="shortPrice" type="text" />
 
-    <label>Thumbnail Price</label>
+    <label>🖼 Thumbnail Price</label>
     <input id="thumbPrice" type="text" />
 
-    <label>Branding Kit Price</label>
+    <label>🚀 Branding Kit Price</label>
     <input id="brandPrice" type="text" />
 
-    <button class="cta-btn" onclick="saveChanges()">💾 Save Changes</button>
+    <label>🖼 Upload Thumbnail Image</label>
+    <input type="file" accept="image/*" onchange="previewImage(event, 'thumbnail')" />
+
+    <label>🎬 Upload Short-form Video</label>
+    <input type="file" accept="video/*" onchange="previewVideo(event, 'video')" />
+
+    <button class="cta-btn" onclick="saveChanges()">💾 Save All</button>
+
+    <h3>Preview</h3>
+    <img id="thumbnailPreview" />
+    <video id="videoPreview" controls></video>
   </section>
 
   <script>
-    const adminPassword = "flyout@123"; // 🔐 Change this to your secret password
+    const adminPassword = "flyout@123";
 
     function checkLogin() {
       const input = document.getElementById("adminPass").value;
@@ -65,13 +89,40 @@
       localStorage.setItem("shortPrice", document.getElementById("shortPrice").value);
       localStorage.setItem("thumbPrice", document.getElementById("thumbPrice").value);
       localStorage.setItem("brandPrice", document.getElementById("brandPrice").value);
-      alert("✅ Changes saved!");
+
+      alert("✅ All changes saved!");
     }
 
     function loadValues() {
       document.getElementById("shortPrice").value = localStorage.getItem("shortPrice") || "₹999";
       document.getElementById("thumbPrice").value = localStorage.getItem("thumbPrice") || "₹399";
       document.getElementById("brandPrice").value = localStorage.getItem("brandPrice") || "₹1499";
+
+      const thumbData = localStorage.getItem("thumbnailImage");
+      const videoData = localStorage.getItem("shortVideo");
+
+      if (thumbData) document.getElementById("thumbnailPreview").src = thumbData;
+      if (videoData) document.getElementById("videoPreview").src = videoData;
+    }
+
+    function previewImage(event, key) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        localStorage.setItem("thumbnailImage", e.target.result);
+        document.getElementById("thumbnailPreview").src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function previewVideo(event, key) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        localStorage.setItem("shortVideo", e.target.result);
+        document.getElementById("videoPreview").src = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
   </script>
 
