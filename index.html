@@ -3,30 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>StudioFlyout</title>
+  <title>StudioFlyout – Creative Agency</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
   <nav class="navbar glass">
-    <h1>Studio<span>Flyout</span></h1>
+    <h1><span>Studio</span>Flyout</h1>
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="admin.html">Admin</a></li>
+    </ul>
   </nav>
 
-  <header class="hero">
+  <header class="hero fade-in">
     <h2>Creative Services for Creators & Startups</h2>
     <p>We help you look stunning online 🎥</p>
   </header>
 
   <section class="services">
-    <div class="card glass">
+    <div class="card glass slide-in">
       <h3>🎬 Short-form Video Editing</h3>
       <p id="price1">₹999</p>
     </div>
-    <div class="card glass">
+    <div class="card glass slide-in">
       <h3>🖼 Custom Thumbnail Design</h3>
       <p id="price2">₹399</p>
     </div>
-    <div class="card glass">
+    <div class="card glass slide-in">
       <h3>🚀 Branding Kit</h3>
       <p id="price3">₹1499</p>
     </div>
@@ -42,20 +48,6 @@
     <p>Contact: <a href="mailto:studioflyout1@gmail.com">studioflyout1@gmail.com</a> | Instagram: <a href="https://instagram.com/studioflyout">@studioflyout</a></p>
   </footer>
 
-  <script>
-    // Load updated values from localStorage
-    window.onload = () => {
-      document.getElementById("price1").innerText = localStorage.getItem("price1") || "₹999";
-      document.getElementById("price2").innerText = localStorage.getItem("price2") || "₹399";
-      document.getElementById("price3").innerText = localStorage.getItem("price3") || "₹1499";
-
-      const thumb = localStorage.getItem("thumbImage");
-      if (thumb) document.getElementById("thumbImage").src = thumb;
-
-      const video = localStorage.getItem("shortVideo");
-      if (video) document.getElementById("shortVideo").src = video;
-    };
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
